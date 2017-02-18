@@ -38,8 +38,8 @@
 <div class="headerBlock"></div>
 <article>
     <p class="desc">本人用angularJs写的相册，点击图片可进入相册，和百度图片区别在于：<br>
-        1、百度缩放基于屏幕中心，而这个基于触摸点中心，用户体验更佳。<br>
-        2、支持平移和缩放时多点切换。<br>
+        1、缩放基于触摸点中心，用户体验更佳，而百度则不是。<br>
+        2、支持平移和缩放时多触点切换。<br>
         3、拖出范围会像iphone相册一样自动回滚到正确位置。</p>
     <section>
         <div class="gallery-image" ng-repeat="img in images" multi-limage="$index path (img.imgUrl) for img in images">

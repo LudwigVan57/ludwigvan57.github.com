@@ -2,9 +2,42 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>3dCanvas</title>
+    <link rel="stylesheet" type="text/css" href="../styles/lib/reset.css">
+    <link rel="stylesheet" type="text/css" href="../styles/common.css">
+    <style>
+        html, body, article {
+            height: 100%;
+        }
+
+        #canvas {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .fixed-bottom {
+            position: fixed;
+            top: 56px;
+            bottom: 0;
+            height:auto;
+            left: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-<h1>3dcanvas</h1>
+<header><h1>3dCanvas</h1></header>
+<article class="fixed-bottom">
+    <p class="desc">
+       本人2年前写的一个3d作品，这种网上非常多，但事实上成熟的控件已帮你做了计算这块最难的工作。此作品所有的计算，矩阵变化全是自己基于过往的数学知识写出来的，所以其实有点难度。<br>
+        <b>鼠标左键旋转，w,a,s,d平移，鼠标滚轮缩放</b>
+    </p>
+    <section>
+        <canvas id="canvas"></canvas>
+    </section>
+</article>
+<script src="../scripts/lib/jquery/jquery-1.11.1.min.js"></script>
+<script src="../scripts/projects/3dCanvasBase.js"></script>
+<script src="../scripts/projects/3dCanvas.js"></script>
 </body>
 </html>

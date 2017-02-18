@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="infiniteScrollExampleApp">
+<head>
+    <meta charset="utf-8">
+    <title>Infinite Scroll</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../styles/lib/reset.css">
+    <link rel="stylesheet" href="../styles/widgets/infiniteScroll.css">
+    <script src="../scripts/lib/angular/angular.min.js"></script>
+</head>
+<body ng-controller="infiniteScrollExampleCtrl">
+<header>
+    <h1>当前共有 {{infinite.realLength}} 条数据</h1>
+</header>
+<div class="headerBlock"></div>
+<article>
+    <p class="desc">自己写的下拉滚动，特别之处指出在于页面只存在100条左右数据的元素，即使拖动到10000页也一样,如无滚动条请降低屏幕高度。</p>
+    <ul infinite="infinite" class="list">
+        <li ng-repeat="item in infinite.data">
+            {{item.value}}
+        </li>
+    </ul>
+    <p class="loading">读取中...</p>
+</article>
+
+<script src="../scripts/lib/angular/infiniteScroll.js"></script>
+<script src="../scripts/widgets/infiniteScrollExample.js"></script>
+<script>
+
+</script>
+
+
+</body>
+</html>

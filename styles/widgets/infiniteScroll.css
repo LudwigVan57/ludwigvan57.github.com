@@ -1,0 +1,37 @@
+.headerBlock {
+  height: 40px; }
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 40px;
+  width: 100%;
+  z-index: 50;
+  background: #ffffff; }
+  header > h1 {
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px; }
+
+.desc {
+  line-height: 1.2em;
+  font-size: 13px;
+  padding: 0 10px 10px; }
+
+.list > li {
+  border-bottom: 1px solid #d4d4d4;
+  height: 30px;
+  line-height: 30px;
+  padding: 20px 20px; }
+
+.list > li:first-child {
+  border-top: 1px solid #d4d4d4; }
+
+.loading {
+  height: 30px;
+  line-height: 30px;
+  padding-left: 20px; }
+
+/*# sourceMappingURL=infiniteScroll.css.map */

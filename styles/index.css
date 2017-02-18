@@ -5,19 +5,32 @@ h1 {
   padding: 15px 0; }
 
 .artifact {
-  width: 1000px;
+  width: 800px;
   margin: 0 auto; }
 
-.artifact > h3 {
-  color: #333333;
-  font-size: 24px;
-  line-height: 1.8rem; }
+.artifact {
+  border-top: 3px solid #62baf9; }
+  .artifact > h3 {
+    color: #333333;
+    font-size: 24px;
+    line-height: 1.8rem; }
 
 .artifact-list {
   padding: 15px; }
-  .artifact-list > li > a {
+  .artifact-list a {
     color: #333333;
     font-size: 24px;
     line-height: 1.5em; }
+
+@media screen and (max-device-width: 640px) {
+  .artifact {
+    width: auto; }
+
+  .artifact-list a {
+    color: #333333;
+    font-size: 20px;
+    line-height: 1.4em; }
+  .artifact-list > li {
+    margin-bottom: 5px; } }
 
 /*# sourceMappingURL=index.css.map */

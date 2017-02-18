@@ -70,5 +70,7 @@
         SvgPanel.cmpToDataDtd.resolve();
 
         localStorage.setItem('flow',JSON.stringify(definition));
+
+        alert('保存成功！');
     });
 })();

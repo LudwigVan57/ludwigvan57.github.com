@@ -1,0 +1,502 @@
+$toolbarWidth: 66px;
+$infoWidth: 350px;
+$infoPadding: 7px;
+$toolImages: (LINE: line, SERVICE: service, FLOW: flow, DECISION: decision, TRANSACTION_BEGIN: transactionBegin, TRANSACTION_COMMIT: transactionCommit);
+$imagePath:"../../images/projects";
+
+
+body {
+  overflow: hidden;
+  min-width: 1024px;
+  position: relative;
+}
+
+html, body {
+  height: 100%;
+}
+
+a {
+  color: #333333;
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.form-control-static {
+  display: block;
+}
+
+#leftContainer {
+  position: absolute;
+  width: $toolbarWidth;
+  left: 0;
+  top: 0;
+  padding: 0 2px;
+
+  > .btn {
+    display: block;
+  }
+}
+
+.toolbar {
+  > li {
+    text-align: center;
+    border: 1px solid #999999;
+    display: block;
+    margin-bottom: -1px;
+    font-size: 12px;
+    line-height: 25px;
+  }
+
+  a {
+    display: block;
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position: center 5px;
+    padding-top: 35px;
+  }
+
+  a:hover {
+    background-color: #666666;
+    color: #ffffff;
+  }
+
+  @each $name, $path in $toolImages {
+    [data-tool="#{$name}"] {
+      background-image: url("#{$imagePath}/#{$path}.png");
+
+      &:hover {
+        background-image: url("#{$imagePath}/#{$path}_hover.png");
+      }
+    }
+  }
+}
+
+.svg-container {
+  border: 1px solid #000000;
+  position: absolute;
+  left: $toolbarWidth;
+  top: 0;
+  right: $infoWidth + 2px;
+  bottom: 0;
+  overflow: auto;
+
+}
+
+svg {
+  overflow: hidden;
+
+  &.normal {
+    rect, circle, text, polyline {
+      cursor: pointer;
+    }
+  }
+
+  &.line {
+    rect {
+      cursor: crosshair;
+    }
+  }
+
+  &.service {
+    cursor: url("../images/service.png"), default;
+  }
+
+  &.decision {
+    cursor: url("../images/decision.png"), default;
+  }
+}
+
+.detect-div {
+  position: absolute;
+  visibility: hidden;
+  line-height: 20px;
+  font-size: 12px;
+  z-index: -1;
+}
+
+#info {
+  background: #F9F9F9;
+  z-index: 101;
+  position: absolute;
+  width: $infoWidth;
+  right: 0;
+  top: 0;
+  height: 100%;
+  border: 1px solid #CECECE;
+  overflow: hidden;
+
+  .form-group, .row {
+    margin-left: -$infoPadding;
+    margin-right: -$infoPadding;
+  }
+
+  .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
+    padding-left: $infoPadding;
+    padding-right: $infoPadding;
+  }
+
+  .form-child-list {
+    margin-bottom: 5px;
+
+    > li {
+      padding: 7px 0;
+      border-bottom: 1px solid #E0E0E0;
+      font-size: 12px;
+
+      > h4 {
+        height: 1em;
+        margin: 0 0 6px;
+      }
+
+      &:first-child {
+        border-top: 1px solid #E0E0E0;
+      }
+    }
+  }
+
+  input.blank {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 7px 0;
+    background: none;
+  }
+
+  .table {
+    table-layout: fixed;
+
+    td {
+      vertical-align: middle;
+    }
+
+    .btn {
+      outline: none;
+    }
+
+    .glyphicon-plus-sign {
+      color: #449d44;
+    }
+
+    .glyphicon-minus-sign {
+      color: #f0ad4e;
+    }
+  }
+
+  #infoResizer {
+    position: absolute;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    top: 0;
+    z-index: 102;
+    cursor: col-resize;
+  }
+
+  #infoForms {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-left: $infoPadding;
+    padding-right: $infoPadding;
+    padding-top: $infoPadding;
+    word-break: break-all;
+    font-size: 13px;
+    position: absolute;
+    box-sizing: border-box;
+    width: $infoWidth - 2px;
+    right: 0;
+    top: 0;
+    height: 100%;
+  }
+}
+
+#serviceModal {
+  table {
+    table-layout: fixed;
+  }
+
+  tr.type1 {
+    cursor: pointer;
+
+    .glyphicon:before {
+      content: "\e117";
+    }
+
+    &.opened .glyphicon:before {
+      content: "\e118";
+    }
+  }
+
+  tr.type2 {
+    cursor: pointer;
+
+    .glyphicon:before {
+      content: "\e250";
+    }
+
+    &.opened .glyphicon:before {
+      content: "\e252";
+    }
+  }
+
+  tr.type3 {
+    cursor: pointer;
+
+    &:hover {
+      background: rgb(160, 197, 232);
+    }
+  }
+
+  tr.level1 > td:first-child {
+    padding-left: 20px;
+  }
+
+  tr.level2 > td:first-child {
+    padding-left: 40px;
+  }
+
+  .glyphicon {
+    margin-right: 5px;
+  }
+
+  td {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+}
+
+#serviceForm {
+  .serviceClass {
+    color: #1D82F5;
+  }
+
+  .entity-show {
+    color: green;
+  }
+}
+
+#lineForm {
+  h5 {
+    word-break: break-all;
+    padding: 0;
+    margin: 0 0 5px;
+  }
+
+  > .toBoxCase {
+
+    .top {
+      background: #A0A0A0;
+      color: #F1F1F1;
+      text-align: center;
+      margin: 0;
+      font-size: 1.1em;
+      padding: 7px 0;
+    }
+
+    input[type="text"] {
+      border: none;
+      outline: none;
+      width: 100%;
+      background: none;
+      padding: 7px 0;
+    }
+
+    .row {
+      margin-bottom: 5px;
+      margin-top: 5px;
+    }
+
+    .toggle-entity {
+      font-size: 16px;
+      color: #85CAC5;
+    }
+
+  }
+}
+
+.rule-select {
+  display: block;
+  border: 1px solid #B3B2B2;
+  border-radius: 3px;
+  line-height: 1.42857;
+  color: #717171;
+  background: rgba(144, 157, 179, 0.16);
+  padding: 7px 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+$ruleSelectFirstWidth: 12em;
+
+#ruleSelectList {
+  display: none;
+  z-index: 150;
+  position: absolute;
+  font-size: 12px;
+  top: 0;
+  height: 100%;
+
+  a {
+    display: block;
+    color: #333333;
+    padding: 0 5px;
+    cursor: pointer;
+
+    &:hover {
+      background: #F1F7FF;
+    }
+
+    &.active {
+      color: #000000;
+      font-weight: bold;
+    }
+
+    &.selected {
+      background: #c6dfff;
+    }
+  }
+
+  .parent-class {
+    color: #016F01;
+    font-weight: bold;
+  }
+
+  > .cmp-list {
+    box-sizing: border-box;
+    max-height: 100%;
+    overflow: auto;
+    right: 0;
+    position: absolute;
+    width: $ruleSelectFirstWidth;
+    background: #ffffff;
+    border: 1px solid #000;
+    border-radius: 3px;
+    margin: 0;
+
+  }
+
+  > .return-list {
+    box-sizing: border-box;
+    max-height: 100%;
+    overflow: auto;
+    position: absolute;
+    width: 8em;
+    right: $ruleSelectFirstWidth;
+    background: #ffffff;
+    border: 1px solid #000;
+    border-radius: 3px;
+    margin: 0 -1px 0;
+  }
+}
+
+#fromDecisionInfo {
+  select {
+    width: 80px;
+    font-size: 12px;
+  }
+
+  .field {
+    margin-left: 85px;
+  }
+
+  .expression {
+    float: left;
+  }
+}
+
+#nodeExpression {
+  a {
+    cursor: auto;
+    color: green;
+  }
+}
+
+#selectedRoles {
+  margin: 7px 0;
+  display: inline-block;
+}
+
+.control-normal {
+  margin-bottom: 0;
+  margin-top: 7px;
+}
+
+#cmpContextMenu {
+  position: absolute;
+  display: none;
+  border: 1px solid #B7B7B7;
+  box-shadow: 0 0 10px 1px #E8E8E8;
+  width: 100px;
+  z-index: 100;
+  background: #ffffff;
+  box-sizing: border-box;
+  border-radius: 5px;
+  overflow: hidden;
+
+  > a {
+    display: block;
+    text-align: center;
+    border-bottom: 1px solid #D4D4D4;
+    border-top: 1px solid #d4d4d4;
+    margin: -1px 0;
+    background: #F9F9F9;
+    padding: 5px 0;
+    color: #616161;
+
+    > span {
+      width: 18px;
+      text-align: left;
+    }
+
+    &:hover {
+      color: #ffffff;
+      background: #666666;
+    }
+  }
+}
+
+#flowTestModal {
+  .close {
+    position: absolute;
+    right: 15px;
+    z-index: 1;
+  }
+
+  .output {
+    word-break: break-all;
+  }
+}
+
+#flowModal {
+  tbody > tr:hover {
+    cursor: pointer;
+    background: #eeeeee;
+  }
+}
+
+#propertySelectList {
+  .glyphicon:before {
+    content: "\e250";
+  }
+
+  .parent.opened>.glyphicon:before{
+    content: "\e252";
+  }
+
+  .parent.opened+ul{
+    display: block;
+  }
+
+  .parent+ul{
+    display: none;
+    padding-left: 20px;
+  }
+}
+
+
+/*****************************补充*****************************/

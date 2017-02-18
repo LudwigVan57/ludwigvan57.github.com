@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>流程编辑</title>
+    <link rel="stylesheet" type="text/css" href="../styles/lib/reset.css">
+    <link rel="stylesheet" type="text/css" href="../styles/lib/bootstrap.css">
+    <link rel="stylesheet" href="../styles/projects/flowPanel.css">
+    <script src="../scripts/lib/jquery/jquery-2.2.2.min.js"></script>
+
+    <script src="../scripts/projects/flowPanel/component.js"></script>
+</head>
+<body>
+<div id="leftContainer">
+    <ul class="toolbar list-unstyled">
+        <li>
+            <a data-tool="LINE">线</a>
+        </li>
+        <li>
+            <a data-tool="SERVICE">服务节点</a>
+        </li>
+        <li>
+            <a data-tool="FLOW">流程节点</a>
+        </li>
+        <li>
+            <a data-tool="TRANSACTION_BEGIN">开启事务</a>
+        </li>
+        <li>
+            <a data-tool="TRANSACTION_COMMIT">提交事务</a>
+        </li>
+        <li>
+            <a data-tool="DECISION">判断</a>
+        </li>
+    </ul>
+</div>
+
+<!--viewBox="0 0 1000 1000"-->
+<div class="svg-container" id="svgContainer" oncontextmenu="window.event.returnValue=false">
+    <svg id="flowSvg" class="normal">
+        <defs>
+            <marker id="arrow"
+                    viewBox="0 0 10 10" refX="8" refY="5"
+                    fill="black"
+                    markerUnits="strokeWidth" markerWidth="4" markerHeight="3"
+                    orient="auto">
+                <path d="M 0 0 L 10 5 L 0 10 z"></path>
+            </marker>
+            <marker id="activeArrow"
+                    viewBox="0 0 10 10" refX="8" refY="5"
+                    fill="green"
+                    markerUnits="strokeWidth" markerWidth="4" markerHeight="3"
+                    orient="auto">
+                <path d="M 0 0 L 10 5 L 0 10 z"></path>
+            </marker>
+            <radialGradient id="lineTurnPoint" cx="0.5" cy="0.5" r="0.3">
+                <stop offset="0" stop-color="blue"></stop>
+                <stop offset="99%" stop-color="blue"></stop>
+                <stop offset="100%" stop-color="transparent"></stop>
+            </radialGradient>
+        </defs>
+    </svg>
+</div>
+
+<div id="info">
+    <div id="infoResizer"></div>
+    <div id="infoForms" class="container-fluid">
+        <form class="form-horizontal" id="flowForm">
+            <div class="form-group">
+                <label for="flowName" class="col-xs-3 control-label">流程名称</label>
+
+                <div class="col-xs-9">
+                    <input type="text" name="flowName" class="form-control" id="flowName" placeholder="流程名称" juicer="flowName">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-3 col-xs-9">
+                    <button type="button" id="flowFormSubmit" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <p style="margin: 0 8px;">该作品为我独立完成的某项目的部分，为方便展示，大部分功能已删除。<br>
+                    <b>拖拽左侧组件到中间区域可生成节点。拖拽线上的点可以改变其位置，双击线可以生成额外的点。鼠标右键可以删除点和节点，更改屏幕右侧的输入框内容可以更改节点名称。</b></p>
+            </div>
+        </form>
+
+        <form class="form-horizontal hidden cmp-form" data-type="START">
+            <div class="form-group">
+                <label for="startName" class="col-xs-3 control-label">名&emsp;称</label>
+
+                <div class="col-xs-9">
+                    <input type="text" name="name" class="form-control" disabled id="startName" placeholder="名称">
+                </div>
+            </div>
+        </form>
+
+        <form class="form-horizontal hidden cmp-form" data-type="END">
+            <div class="form-group">
+                <label for="startName" class="col-xs-3 control-label">名&emsp;称</label>
+
+                <div class="col-xs-9">
+                    <input type="text" name="name" class="form-control" disabled id="endName" placeholder="名称">
+                </div>
+            </div>
+        </form>
+
+        <form class="form-horizontal hidden cmp-form" data-type="SERVICE" id="serviceForm">
+            <div class="form-group">
+                <label for="serviceName" class="col-xs-3 control-label">名&emsp;称</label>
+
+                <div class="col-xs-9">
+                    <input type="text" name="name" class="form-control" id="serviceName" placeholder="名称">
+                </div>
+            </div>
+        </form>
+
+        <form class="form-horizontal hidden cmp-form" data-type="FLOW">
+            <div class="form-group">
+                <label class="col-xs-3 control-label">名&emsp;称</label>
+
+                <div class="col-xs-9">
+                    <input type="text" name="name" class="form-control" placeholder="名称">
+                </div>
+            </div>
+        </form>
+
+        <form class="form-horizontal hidden cmp-form" data-type="TRANSACTION_BEGIN">
+            <div class="form-group">
+                <label class="col-xs-3 control-label">名&emsp;称</label>
+
+                <div class="col-xs-9">
+                    <input type="text" name="name" class="form-control" placeholder="名称">
+                </div>
+            </div>
+        </form>
+
+        <form class="form-horizontal hidden cmp-form" data-type="TRANSACTION_COMMIT">
+            <div class="form-group">
+                <label class="col-xs-3 control-label">名&emsp;称</label>
+
+                <div class="col-xs-9">
+                    <input type="text" name="name" class="form-control" placeholder="名称">
+                </div>
+            </div>
+        </form>
+
+        <form class="form-horizontal hidden cmp-form" data-type="DECISION">
+            <div class="form-group">
+                <label class="col-xs-3 control-label">名&emsp;称</label>
+
+                <div class="col-xs-9">
+                    <input type="text" name="name" class="form-control" placeholder="名称">
+                </div>
+            </div>
+        </form>
+
+        <form class="form-horizontal hidden cmp-form" data-type="LINE" id="lineForm">
+            <div class="form-group">
+                <label class="col-xs-3 control-label">名&emsp;称</label>
+
+                <div class="col-xs-9">
+                    <input type="text" name="name" class="form-control" placeholder="名称">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal fade" id="serviceModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title">模块选择</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="col-xs-9">模块</th>
+                        <th class="col-xs-3">描述</th>
+                    </tr>
+                    </thead>
+                    <tbody id="serviceList">
+                    </tbody>
+                </table>
+                <nav id="servicePagination">
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="roleModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title">权限</h4>
+            </div>
+            <div class="modal-body">
+                <ul id="roleList" class="list-unstyled">
+                </ul>
+                <nav id="rolePagination">
+                </nav>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="roleSelectBtn">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="propertySelectModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title">属性选择</h4>
+            </div>
+            <div class="modal-body">
+                <ul id="propertySelectList" class="list-unstyled">
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="propertySelectBtn">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="flowTestModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <div class="row">
+                    <div class="col-xs-6 text-center">
+                        <h4 class="modal-title">输入</h4>
+                    </div>
+                    <div class="col-xs-6 text-center">
+                        <h4 class="modal-title">输出</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body row">
+                <input type="hidden" name="httpMethod">
+                <form class="form-horizontal col-xs-6" id="flowTestInput"></form>
+                <div class="col-xs-6 output" id="flowTestOutput">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="flowTestBtn">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="flowModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title">流程选择</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="col-xs-5">编号</th>
+                        <th class="col-xs-7">名称</th>
+                    </tr>
+                    </thead>
+                    <tbody id="flowList">
+                    </tbody>
+                </table>
+                <nav id="flowPagination">
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="cmpContextMenu">
+    <a data-method="nodeDelete"><span class="glyphicon glyphicon-trash"></span>删除组件</a>
+    <a data-method="pointDelete"><span class="glyphicon glyphicon-remove"></span>删除折点</a>
+</div>
+
+<script src="../scripts/projects/flowPanel/panel.js"></script>
+<script src="../scripts/projects/flowPanel/event.js"></script>
+
+<script src="../scripts/projects/flowPanel/nodes/start.js"></script>
+<script src="../scripts/projects/flowPanel/nodes/end.js"></script>
+<script src="../scripts/projects/flowPanel/nodes/service.js"></script>
+<script src="../scripts/projects/flowPanel/nodes/flow.js"></script>
+<script src="../scripts/projects/flowPanel/nodes/decision.js"></script>
+<script src="../scripts/projects/flowPanel/nodes/transactionBegin.js"></script>
+<script src="../scripts/projects/flowPanel/nodes/transactionCommit.js"></script>
+<script src="../scripts/projects/flowPanel/nodes/line.js"></script>
+
+<script src="../scripts/projects/flow.js"></script>
+</body>
+</html>

@@ -78,8 +78,8 @@
                 </div>
             </div>
             <div class="form-group">
-                <p style="margin: 0 8px;">该作品为我独立完成的某项目的部分，为方便展示，大部分功能已删除。<br>
-                    <b>拖拽左侧组件到中间区域可生成节点。拖拽线上的点可以改变其位置，双击线可以生成额外的点。鼠标右键可以删除点和节点，更改屏幕右侧的输入框内容可以更改节点名称。</b></p>
+                <p style="margin: 0 8px;"><b>开发说明：</b>该作品为我独立完成的某项目的部分，为方便展示，大部分功能已删除。<br>
+                    <b>使用说明：</b>拖拽左侧组件到中间区域可生成节点。拖拽线上的点可以改变其位置，双击线可以生成额外的点。鼠标右键可以删除点和节点，更改屏幕右侧的输入框内容可以更改节点名称。</p>
             </div>
         </form>
 
@@ -164,117 +164,7 @@
         </form>
     </div>
 </div>
-<div class="modal fade" id="serviceModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                <h4 class="modal-title">模块选择</h4>
-            </div>
-            <div class="modal-body">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th class="col-xs-9">模块</th>
-                        <th class="col-xs-3">描述</th>
-                    </tr>
-                    </thead>
-                    <tbody id="serviceList">
-                    </tbody>
-                </table>
-                <nav id="servicePagination">
-                </nav>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="roleModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                <h4 class="modal-title">权限</h4>
-            </div>
-            <div class="modal-body">
-                <ul id="roleList" class="list-unstyled">
-                </ul>
-                <nav id="rolePagination">
-                </nav>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="roleSelectBtn">确定</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="propertySelectModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                <h4 class="modal-title">属性选择</h4>
-            </div>
-            <div class="modal-body">
-                <ul id="propertySelectList" class="list-unstyled">
-                </ul>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="propertySelectBtn">确定</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="flowTestModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                <div class="row">
-                    <div class="col-xs-6 text-center">
-                        <h4 class="modal-title">输入</h4>
-                    </div>
-                    <div class="col-xs-6 text-center">
-                        <h4 class="modal-title">输出</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body row">
-                <input type="hidden" name="httpMethod">
-                <form class="form-horizontal col-xs-6" id="flowTestInput"></form>
-                <div class="col-xs-6 output" id="flowTestOutput">
 
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="flowTestBtn">确定</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="flowModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                <h4 class="modal-title">流程选择</h4>
-            </div>
-            <div class="modal-body">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th class="col-xs-5">编号</th>
-                        <th class="col-xs-7">名称</th>
-                    </tr>
-                    </thead>
-                    <tbody id="flowList">
-                    </tbody>
-                </table>
-                <nav id="flowPagination">
-                </nav>
-            </div>
-        </div>
-    </div>
-</div>
 <div id="cmpContextMenu">
     <a data-method="nodeDelete"><span class="glyphicon glyphicon-trash"></span>删除组件</a>
     <a data-method="pointDelete"><span class="glyphicon glyphicon-remove"></span>删除折点</a>

@@ -13,7 +13,11 @@ h1 {
   font-size: 24px;
   line-height: 1.8rem; }
 
-.artifact-list > li {
-  line-height: 1.5rem; }
+.artifact-list {
+  padding: 15px; }
+  .artifact-list > li > a {
+    color: #333333;
+    font-size: 24px;
+    line-height: 1.5em; }
 
 /*# sourceMappingURL=index.css.map */

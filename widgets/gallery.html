@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="galleryExampleApp">
+<head>
+    <meta charset="utf-8">
+    <title>Infinite Scroll</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../styles/lib/reset.css">
+    <script src="../scripts/lib/angular/angular.min.js"></script>
+    <style>
+        .gallery-image{
+            width: 70%;
+            margin: 0 auto;
+        }
+        .image>img{
+            max-width: 100%;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .desc{
+            font-size: 16px;
+            line-height: 1.5rem;
+            margin: 0 15px 10px;
+        }
+        h1{
+            text-align: center;
+            font-size: 30px;
+            padding: 15px 0;
+        }
+    </style>
+</head>
+<body ng-controller="galleryExampleCtrl">
+<header>
+    <h1>相册</h1>
+</header>
+<div class="headerBlock"></div>
+<article>
+    <p class="desc">本人用angularJs写的相册，点击图片可进入相册，和百度图片区别在于：<br>
+        1，百度缩放基于屏幕中心，而这个基于触摸点中心，用户体验更佳<br>
+        2，支持平移和缩放时多点切换<br>
+        3，拖出范围会像iphone相册一样自动回滚到正确位置</p>
+    <section>
+        <div class="gallery-image" ng-repeat="img in images" multi-limage="$index path (img.imgUrl) for img in images">
+            <div class="image">
+                <img ng-src="{{img.imgUrl}}">
+            </div>
+        </div>
+    </section>
+</article>
+
+<script src="../scripts/lib/angular/largeImage.js"></script>
+<script src="../scripts/widgets/galleryExample.js"></script>
+<script>
+
+</script>
+
+
+</body>
+</html>

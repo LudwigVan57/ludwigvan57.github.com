@@ -13,11 +13,11 @@
 </head>
 <body ng-controller="infiniteScrollExampleCtrl">
 <header>
-    <h1>当前共有 {{infinite.realLength}} 条数据</h1>
+    <h1>当前共有 {{infinite.realLength}} 行数据元素</h1>
 </header>
 <div class="headerBlock"></div>
 <article>
-    <p class="desc">自己写的下拉滚动，特别之处指出在于页面只存在100条左右数据的元素，即使拖动到10000页也一样,如无滚动条请降低屏幕高度。</p>
+    <p class="desc"><b>开发说明：</b>本人用angularJs写的下拉滚动，特别之处在于页面只存在100条左右数据的元素，即使拖动到10000页也一样,如无滚动条请降低屏幕高度。（请往下拖）</p>
     <ul infinite="infinite" class="list">
         <li ng-repeat="item in infinite.data">
             {{item.value}}

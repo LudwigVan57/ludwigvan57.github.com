@@ -19,7 +19,14 @@ h1{
 }
 
 .artifact-list{
+  padding: 15px;
+
   >li{
-    line-height: 1.5rem;
+
+    >a{
+      color: #333333;
+      font-size: 24px;
+      line-height: 1.5em;
+    }
   }
 }

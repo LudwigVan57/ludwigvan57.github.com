@@ -222,7 +222,7 @@
             if(matArray[4]!==offsetX || matArray[5]!==offsetY){
                 curStatus = StatusEnum.ANIMATION;
                 animateTo(curImage, matArray, function () {
-                    curStatus = StatusEnum.NORMAL;
+                    curStatus = StatusEnum.IMG_ZOOM;
                 });
             }
         }

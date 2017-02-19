@@ -130,9 +130,9 @@
             }
 
             lastTouches = touches;
-        }/* else {
+        } else {
             lastTouches = e.touches;
-        }*/
+        }
     }
 
     function touchEnd(e) {
@@ -168,9 +168,9 @@
                 touchEndTime = e.timeStamp;
             }
             lastTouches = touches;
-        }/* else {
+        } else {
             lastTouches = e.touches;
-        }*/
+        }
     }
 
     function fixTransform() {

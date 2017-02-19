@@ -32,13 +32,13 @@
 
     var touchMoveTime, touchEndTime;
 
-    var matArray = [1, 0, 0, 1, 0, 0];
+    var matArray = [1,0,0,1,0,0];
 
     //styles
     var containerStyle = "position: fixed;top:0;left:0;width: 100%;height: 100%;background: #000000;z-index: 1000;",
         ulStyle = "display: -webkit-box;-webkit-box-orient: horizontal;height: 100%;width:100%;",
         liStyle = "display: block;height: 100%;width:100%;",
-        imgBoxStyle = "-webkit-transform-origin:center;transform-origin:center;display: -webkit-box;-webkit-box-align: center;-webkit-box-pack: center;height: 100%;width:100%;",
+        imgBoxStyle = "-webkit-transform-origin:50% 50%;transform-origin:50% 50%;display: -webkit-box;-webkit-box-align: center;-webkit-box-pack: center;height: 100%;width:100%;",
         imgStyle = "display: block;max-width: 100%;max-height: 100%;",
         toolStyle = "position: absolute;top: 0;left: 0;width: 100%;height: 40px;background:rgba(0,0,0,0.66);text-align: center;line-height: 40px;",
         closeToolStyle = "position: absolute;right: 0;color: #E2E2E2;width: 40px;font-size: 25px;";
@@ -68,7 +68,6 @@
         toolContainer.css("display", "none");
         container.css("display", "block");
     }
-
     function touchStart(e) {
         windowWidth = window.innerWidth;
 
@@ -79,26 +78,26 @@
         curImage = imageContainer.children().eq(curIndex).children();
         e.preventDefault();
 
-        lastTouches = getTouches(e.touches);
+        lastTouches = e.touches;
     }
 
     function touchMove(e) {
         if (curStatus !== StatusEnum.ANIMATION) {
-            var touches = getTouches(e.touches);
+            var touches = e.touches;
 
             if (touches.length === 1) {
                 var touch = touches[0],
                     lastTouch = lastTouches[0];
                 if (curStatus === StatusEnum.IMG_ZOOM) {
-                    var xChange = lastTouch.x - touch.x,
-                        yChange = lastTouch.y - touch.y;
+                    var xChange = lastTouch.pageX - touch.pageX,
+                        yChange = lastTouch.pageY - touch.pageY;
 
                     matTranslate(curX - xChange, curY - yChange, curScale);
                     matExcute();
                 } else {
                     curStatus = StatusEnum.TRANSITION;
 
-                    var shiftChange = lastTouch.x - touch.x;
+                    var shiftChange = lastTouch.pageX - touch.pageX;
 
                     setShift(curShift + shiftChange);
 
@@ -115,10 +114,10 @@
 
                     var dA = distanceBetweenTouches(touchA1, touchA2),
                         dB = distanceBetweenTouches(touchB1, touchB2),
-                        aX = (touchA1.x + touchA2.x) / 2,
-                        aY = (touchA1.y + touchA2.y) / 2,
-                        bX = (touchB1.x + touchB2.x) / 2,
-                        bY = (touchB1.y + touchB2.y) / 2,
+                        aX = (touchA1.pageX + touchA2.pageX) / 2,
+                        aY = (touchA1.pageY + touchA2.pageY) / 2,
+                        bX = (touchB1.pageX + touchB2.pageX) / 2,
+                        bY = (touchB1.pageY + touchB2.pageY) / 2,
                         xChange = bX - aX,
                         yChange = bY - aY;
                     var scaleChange = dB / dA;
@@ -130,13 +129,13 @@
 
             lastTouches = touches;
         } else {
-            lastTouches = getTouches(e.touches);
+            lastTouches = e.touches;
         }
     }
 
     function touchEnd(e) {
         if (curStatus !== StatusEnum.ANIMATION) {
-            var touches = getTouches(e.touches);
+            var touches = e.touches;
 
             if (touches.length === 0) {
                 if (curStatus === StatusEnum.TRANSITION) {
@@ -160,7 +159,7 @@
                 }
 
                 if ((e.timeStamp - touchEndTime) < DBCLICK_THRESHOLD) {
-                    matArray = [1, 0, 0, 1, 0, 0];
+                    matArray = [1,0,0,1,0,0];
                     matExcute();
                     curStatus = StatusEnum.NORMAL;
                 }
@@ -168,7 +167,7 @@
             }
             lastTouches = touches;
         } else {
-            lastTouches = getTouches(e.touches);
+            lastTouches = e.touches;
         }
     }
 
@@ -178,7 +177,7 @@
 
         if (scale < 1) {
             curStatus = StatusEnum.ANIMATION;
-            matArray = [1, 0, 0, 1, 0, 0];
+            matArray = [1,0,0,1,0,0];
             animateTo(curImage, matArray, function () {
                 curStatus = StatusEnum.NORMAL;
             });
@@ -229,18 +228,9 @@
         }
     }
 
-    function getTouches(eTouches) {
-        var touches = [];
-        for (var i = 0, l = eTouches.length; i < l; i++) {
-            var touch = eTouches[i];
-            touches.push({x: touch.pageX, y: touch.pageY});
-        }
-        return touches;
-    }
-
     function distanceBetweenTouches(touch1, touch2) {
-        var sX = touch1.x - touch2.x,
-            sY = touch1.y - touch2.y;
+        var sX = touch1.pageX - touch2.pageX,
+            sY = touch1.pageY - touch2.pageY;
         return Math.sqrt(sX * sX + sY * sY);
     }
 
@@ -252,19 +242,36 @@
             curStatus = StatusEnum.NORMAL;
             imageContainer.css("webkitTransition", "");
             imageContainer.off("webkitTransitionEnd");
+            setShowImage(index);
         });
 
-        setShowImage(index);
+        setShift(index*window.innerWidth);
     }
 
     function setShowImage(index) {
-        imageContainer.css("webkitTransform", "translate(" + (-index) + "00%,0)");
+        imageContainer.css("webkitTransform", "translate3d(" + (-index) + "00%,0px,0px)");
         curIndex = index;
     }
 
     function setShift(shift) {
         curShift = shift;
-        imageContainer.css("webkitTransform", "translate(" + (-shift) + "px,0)");
+        imageContainer.css("webkitTransform", "translate3d(" + (-shift) + "px,0px,0px)");
+    }
+
+    function matExcute() {
+        setMatrix(curImage, matArray);
+    }
+
+    function animateTo(el, mat, callback) {
+        el.css("webkitTransition", "-webkit-transform 300ms");
+
+        setMatrix(el, mat);
+
+        el.on("webkitTransitionEnd", function () {
+            el.css("webkitTransition", "");
+            el.off("webkitTransitionEnd");
+            callback && callback();
+        });
     }
 
     function matTranslate(shiftX, shiftY) {
@@ -288,29 +295,13 @@
         matArray[5] = b1 * e + d1 * f + f1;
     }
 
-    function matExcute() {
-        setMatrix(curImage, matArray);
-    }
-
-    function animateTo(el, mat, callback) {
-        el.css("webkitTransition", "-webkit-transform 300ms");
-
-        setMatrix(el, mat);
-
-        el.on("webkitTransitionEnd", function () {
-            el.css("webkitTransition", "");
-            el.off("webkitTransitionEnd");
-            callback && callback();
-        });
-    }
-
     function setMatrix(el, mat) {
-        el.css("webkitTransform", "matrix(" + mat[0] + "," +
-            mat[1] + "," +
-            mat[2] + "," +
-            mat[3] + "," +
-            mat[4] + "," +
-            mat[5] + ")");
+       // matrix(a,b,c,d,e,f)与matrix3d(a, b, 0, 0, c, d, 0, 0, 0, 0, 1, 0, e, f, 0, 1)的结果相同。
+        el.css("webkitTransform", "matrix3d(" +
+            mat[0] + "," + mat[1] + ",0,0," +
+            mat[2] + "," + mat[3] + ",0,0," +
+            "0,0,1,0,"+
+            mat[4] + "," + mat[5] + ",0,1)");
     }
 
     function toggleTool() {

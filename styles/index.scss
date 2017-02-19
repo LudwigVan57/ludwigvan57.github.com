@@ -1,47 +1,48 @@
-h1{
+h1 {
   color: #333333;
   text-align: center;
   font-size: 30px;
   padding: 15px 0;
 }
 
-.artifact{
+.artifact {
   width: 800px;
   margin: 0 auto;
 }
 
-.artifact{
+.artifact {
   border-top: 3px solid #62baf9;
 
-  >h3{
+  > h3 {
     color: #333333;
     font-size: 24px;
     line-height: 1.8rem;
   }
 }
 
-.artifact-list{
+.artifact-list {
   padding: 15px;
 
-  a{
-      color: #333333;
-      font-size: 24px;
-      line-height: 1.5em;
+  a {
+    display: block;
+    color: #333333;
+    font-size: 24px;
+    line-height: 1.8em;
+    text-decoration: underline;
   }
 }
 
-@media screen and (max-device-width:640px){
-  .artifact{
+@media screen and (max-device-width: 640px) {
+  .artifact {
     width: auto;
   }
 
-  .artifact-list{
-    a{
+  .artifact-list {
+    a {
       color: #333333;
       font-size: 20px;
-      line-height: 1.4em;
     }
-    >li{
+    > li {
       margin-bottom: 5px;
     }
   }

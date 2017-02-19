@@ -18,9 +18,11 @@ h1 {
 .artifact-list {
   padding: 15px; }
   .artifact-list a {
+    display: block;
     color: #333333;
     font-size: 24px;
-    line-height: 1.5em; }
+    line-height: 1.8em;
+    text-decoration: underline; }
 
 @media screen and (max-device-width: 640px) {
   .artifact {
@@ -28,8 +30,7 @@ h1 {
 
   .artifact-list a {
     color: #333333;
-    font-size: 20px;
-    line-height: 1.4em; }
+    font-size: 20px; }
   .artifact-list > li {
     margin-bottom: 5px; } }
 

@@ -69,16 +69,18 @@
         container.css("display", "block");
     }
     function touchStart(e) {
-        windowWidth = window.innerWidth;
+        if (curStatus !== StatusEnum.ANIMATION) {
+            windowWidth = window.innerWidth;
 
-        touchMoveTime = e.timeStamp;
+            touchMoveTime = e.timeStamp;
 
-        setShift(windowWidth * curIndex);
+            setShift(windowWidth * curIndex);
 
-        curImage = imageContainer.children().eq(curIndex).children();
-        e.preventDefault();
+            curImage = imageContainer.children().eq(curIndex).children();
+            e.preventDefault();
 
-        lastTouches = e.touches;
+            lastTouches = e.touches;
+        }
     }
 
     function touchMove(e) {
@@ -128,9 +130,9 @@
             }
 
             lastTouches = touches;
-        } else {
+        }/* else {
             lastTouches = e.touches;
-        }
+        }*/
     }
 
     function touchEnd(e) {
@@ -166,9 +168,9 @@
                 touchEndTime = e.timeStamp;
             }
             lastTouches = touches;
-        } else {
+        }/* else {
             lastTouches = e.touches;
-        }
+        }*/
     }
 
     function fixTransform() {

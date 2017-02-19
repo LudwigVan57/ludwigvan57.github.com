@@ -21,6 +21,7 @@
             addCube.apply(this, getOneQuad(array)[0]);
         }
 
+        array = null;
         canvas3d.draw();
     }
 

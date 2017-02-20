@@ -11,5 +11,8 @@ app.controller('galleryExampleCtrl', function($scope) {
         {imgUrl:'../images/widgets/3.jpeg'}
     ];
 
-
+    var isMobile = !!(new MobileDetect(window.navigator.userAgent).mobile());
+    if(!isMobile){
+        alert('请在手机上打开！');
+    }
 });

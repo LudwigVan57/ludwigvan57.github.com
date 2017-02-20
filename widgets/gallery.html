@@ -37,10 +37,12 @@
 </header>
 <div class="headerBlock"></div>
 <article>
-    <p class="desc">本人用angularJs写的相册，点击图片可进入相册，和百度图片区别在于：<br>
-        1、缩放基于触摸点中心，用户体验更佳，而百度则不是。<br>
+    <p class="desc">本人用angularJs写的相册，和百度图片区别在于：<br>
+        1、缩放基于触摸点中心，而百度基于屏幕中心。<br>
         2、支持平移和缩放时多触点切换。<br>
-        3、拖出范围会像iphone相册一样自动回滚到正确位置。</p>
+        3、拖出范围会像iphone相册一样自动回滚到正确位置，用户体验更佳。<br>
+        点下方图片进入相册，可以和<a href="http://image.baidu.com/search/wiseala?tn=wiseala&ie=utf8&target=1&word=%E6%A0%91&pn=1&di=102187372650&pi=0&os=4078160716,602377377&cs=1095577899,1758481146&adpicid=0&bdtype=0&objurl=http%3A%2F%2Fpic.shejiben.com%2Fcaizhi%2Fday_090514%2F20090514_ac7eecb84f505d7a1902hK5KYOo1ndeA.jpg&simid=3506952396,405800417&needpersonalized=0&haspersonalized=0&timingneed=0&spn=0&is=0,0&tp=strong&fr=alawise&pos=2&stdstl=2&index=0&prefer=https%3A%2F%2Fss0.bdstatic.com%2F9bA1vGfa2gU2pMbfm9GUKT-w%2Ftimg%3Fwisealaddin%26size%3Dw10000%26quality%3D75%26sec%3D1487554462%26di%3D4f6d7b92149198a024282143d0f19f1d&hs=2&xthttps=110111&ctd=1487554463869_e^25_320x480">百度图片</a>
+        对比下！</p>
     <section>
         <div class="gallery-image" ng-repeat="img in images" multi-limage="$index path (img.imgUrl) for img in images">
             <div class="image">

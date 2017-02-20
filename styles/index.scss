@@ -1,8 +1,15 @@
 h1 {
-  color: #333333;
+  color: #fefefe;
   text-align: center;
   font-size: 30px;
   padding: 15px 0;
+}
+
+.author{
+  color: #95918e;
+  font-size: 12px;
+  text-align: center;
+  margin-bottom: 8px;
 }
 
 .artifact {
@@ -11,7 +18,7 @@ h1 {
 }
 
 .artifact {
-  border-top: 3px solid #62baf9;
+  border-top: 1px solid #26252a;
 
   > h3 {
     color: #333333;
@@ -24,11 +31,14 @@ h1 {
   padding: 15px;
 
   a {
-    display: block;
-    color: #333333;
+    color: #85807d;
     font-size: 24px;
     line-height: 1.8em;
     text-decoration: underline;
+
+    &.hover{
+      color: rgb(127, 207, 232);
+    }
   }
 }
 
@@ -39,11 +49,37 @@ h1 {
 
   .artifact-list {
     a {
-      color: #333333;
       font-size: 20px;
     }
     > li {
       margin-bottom: 5px;
     }
   }
+}
+
+body{
+  background: rgb(21,20,25);
+}
+
+#cursorCanvas{
+  position: absolute;
+  left: 0;
+  top:0;
+  z-index: 100;
+}
+
+#topContainer{
+  position: absolute;
+  left: 0;
+  top:0;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+  cursor: url("../images/transparent_pointer.png"),auto;
+}
+
+a.alternate{
+  position: absolute;
+  display: block;
+  cursor: url("../images/transparent_pointer.png"),auto;
 }

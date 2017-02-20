@@ -1,4 +1,5 @@
 var isMobile = !!(new MobileDetect(window.navigator.userAgent).mobile());
+var isHover = false;
 
 (function () {
     if(isMobile){
@@ -8,22 +9,27 @@ var isMobile = !!(new MobileDetect(window.navigator.userAgent).mobile());
     var cursorCanvas, cursorCtx, timer = 0,
         cursorX, cursorY;
 
-    var CURSOR_COLOR = [13, 164, 211];
+    var Color = {
+        blue: [13, 164, 211],
+        red: [253, 161, 35]
+    };
 
 
-
-    var centerGradient;
+    var redGradient,blueGradient;
 
     function initCursorCanvas() {
         cursorCanvas = document.getElementById('cursorCanvas');
         cursorCtx = cursorCanvas.getContext("2d");
         document.addEventListener('mousemove', cursorMouseMove);
 
-        centerGradient = cursorCtx.createRadialGradient(0, 0, 0, 0, 0, 8);
-        centerGradient.addColorStop(0, getColor(CURSOR_COLOR,1));
-        centerGradient.addColorStop(0.6, getColor(CURSOR_COLOR,0.6));
-        centerGradient.addColorStop(1, getColor(CURSOR_COLOR,0));
-
+        blueGradient = cursorCtx.createRadialGradient(0, 0, 0, 0, 0, 8);
+        blueGradient.addColorStop(0, getColor(Color.blue,1));
+        blueGradient.addColorStop(0.6, getColor(Color.blue,0.6));
+        blueGradient.addColorStop(1, getColor(Color.blue,0));
+        redGradient = cursorCtx.createRadialGradient(0, 0, 0, 0, 0, 8);
+        redGradient.addColorStop(0, getColor(Color.red, 1));
+        redGradient.addColorStop(0.6, getColor(Color.red, 0.6));
+        redGradient.addColorStop(1, getColor(Color.red, 0));
 
         refreshCursor();
         startBindCursorEvent();
@@ -59,7 +65,7 @@ var isMobile = !!(new MobileDetect(window.navigator.userAgent).mobile());
                 particle.startX = cursorX;
                 particle.startY = cursorY;
                 particle.angle = getRamdonAngle();
-                particle.color = CURSOR_COLOR;
+                particle.color = isHover?Color.red:Color.blue;
 
                 this.store[particle.id] = particle;
 
@@ -151,7 +157,7 @@ var isMobile = !!(new MobileDetect(window.navigator.userAgent).mobile());
         cursorCtx.translate(cursorX,cursorY);
 
         cursorCtx.arc(0, 0, 8, 0, 360, false);
-        cursorCtx.fillStyle = centerGradient;
+        cursorCtx.fillStyle = isHover?redGradient:blueGradient;
         cursorCtx.fill();
 
 
@@ -196,8 +202,10 @@ var isMobile = !!(new MobileDetect(window.navigator.userAgent).mobile());
 
         if(!isMobile){
             $a.hover(function(){
+                isHover=true;
                 $el.addClass('hover');
             },function(){
+                isHover=false;
                 $el.removeClass('hover');
             });
 
